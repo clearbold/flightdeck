@@ -1,0 +1,3 @@
+Copyright 2015 Clearbold, LLC
+
+You may fork or download this code for personal use, but distribution, modification, sublicensing are prohibited.

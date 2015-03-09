@@ -1,0 +1,24 @@
+{% extends "_layouts/base.html" %}
+{% block content %}
+    <ul>
+{% for item in file_tree %}
+        <li class="{{ item.item_cycle }} {{ item.item_type }} {{ item.item_level }}">{{ item.item_name }}{% if item.item_type=='file' %}<a href="#" class="build-link" data-template-name="{{ item.item_template_name }}">Build</a>{% endif %}</li>
+{% endfor %}
+    </ul>
+    <script type="text/javascript" src="/tmp-ui/jquery.js"></script>
+    <script type="text/javascript">
+        $('a.build-link').on('click', function(e) {
+            e.preventDefault;
+
+            $(this).addClass('build-pending');
+
+            $.ajax({
+                url: "/build/" + $(this).data('template-name'),
+                context: $(this)
+            }).done(function() {
+                $(this).removeClass('build-pending');
+                $(this).addClass('build-successful');
+            });
+        })
+    </script>
+{% endblock content %}

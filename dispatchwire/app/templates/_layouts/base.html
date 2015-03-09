@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        * {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+            max-width: 800px;
+            padding: 5px;
+        }
+        li {
+            font-size: 14px;
+            line-height: 2em;
+            margin-bottom: 1px;
+            padding: 5px 20px 5px 5px;
+        }
+            li.l1.odd,
+            li.l2.even {
+                background: #efefef;
+            }
+            li.l2 {
+                padding-left: 40px;
+            }
+            li.dir {
+                background: #fcf6df;
+            }
+
+            a.build-link {
+                color: #0074d9;
+                display: inline-block;
+                float: right;
+                font-size: .9em;
+                padding: 0 15px;
+                text-decoration: none;
+            }
+            a.build-pending {
+                //color: #9a0f02;
+            }
+            a.build-successful {
+                color: #038911;
+            }
+    </style>
+</head>
+<body>
+{% block content %}
+
+{% endblock content %}
+</body>
+</html>
