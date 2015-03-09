@@ -9,6 +9,8 @@ public_html/live/email/app-dev/*
 # Rename sample-general.yaml to general.yaml and fill in your values
 dispatchwire/config/general.yaml
 
+dispatchwire/cache/*
+
 # Ignore Composer files
 composer.phar
 composer.lock
