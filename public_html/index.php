@@ -8,6 +8,16 @@ $app = new \Slim\Slim(array(
 ));
 use secondparty\Dipper\Dipper as Dipper;
 
+// TODO: Move global config stuff to the right place
+// TODO: Move reading YAML to somewhere central
+// Get the contents of the file as a string
+$config_file = file_get_contents('../dispatchwire/config/general.yaml');
+// Delineate the YAML front matter and template HTML
+$config_contents = explode('---', $config_file);
+$global_config = Dipper::parse($config_contents[1]);
+
+$mandrill = new Mandrill($global_config['mandrill_api_key']);
+
 $view = $app->view();
 $view->parserOptions = array(
     'debug' => true,
@@ -38,7 +48,7 @@ $app->get('/', function () use ($app) {
         $file_tree_email[] = array('item_name' => explode('/',$dirname)[count(explode('/',$dirname))-1], 'item_type' => 'dir', 'item_level' => 'l1', 'item_cycle' => '', 'item_template_name' => str_replace('/', '::', $dirname) );
         // L2 files›
         $i = 0;
-        foreach  (glob("$dirname/*") as $filename) {
+        foreach (glob("$dirname/*") as $filename) {
             $file_tree_email[] = array('item_name' => explode('/',$filename)[count(explode('/',$filename))-1], 'item_type' => 'file', 'item_level' => 'l2', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename) );
             $i++;
         }
@@ -48,7 +58,7 @@ $app->get('/', function () use ($app) {
 
 });
 
-$app->get('/build/:template', function($template) use ($app) {
+$app->get('/build/:template', function($template) use ($app, $mandrill) {
 
     // Fetch the template's filename from the request, convert it back to a filepath
     $filename = str_replace('::', '/', $template);
@@ -74,6 +84,32 @@ $app->get('/build/:template', function($template) use ($app) {
     $template_filename_live = implode('/', $template_filename);
 
     // TODO: Per the YAML Config, swap in preview values, send test emails
+
+    if ($template_config['_email_test']) {
+        // We're going to send the test email using Mandrill to the specified addresses
+        // TODO: Fall back to an address stored in config/general.yaml
+        $test_addresses = array();
+        foreach ($template_config['_test_addresses'] as $address) {
+            $test_addresses[] = array(
+                'email' => $address,
+                'name' => '',
+                'type' => ''
+            );
+        }
+        $message = array(
+            'html' => $html,
+            'text' => '',
+            'subject' => 'PREVIEW ' . $template_config['_subject'],
+            'from_email' => $template_config['_sender_email'],
+            'from_name' => $template_config['_sender_name'],
+            'to' => $test_addresses
+        );
+
+        $async = false;
+        $result = $mandrill->messages->send($message, $async);
+
+        var_dump($result);
+    }
 
     // Write the updated preview file
     $preview_file = file_force_contents($template_filename_preview, $html);

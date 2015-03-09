@@ -6,6 +6,7 @@
         "twig/twig": "~1.18",
         "slim/slim": "2.6.*",
         "secondparty/dipper": "0.4.*",
-        "slim/views": "0.1.*"
+        "slim/views": "0.1.*",
+        "mandrill/mandrill": "~1.0"
     }
 }
