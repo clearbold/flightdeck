@@ -71,8 +71,15 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
     $template_config = Dipper::parse($template_contents[1]);
 
     // Pass the template's HTML to the Premailer API
-    $pre = Premailer::html(trim($template_contents[2]));
-    $live_html = $pre['html'];
+    try
+    {
+        $pre = Premailer::html(trim($template_contents[2]));
+        $live_html = $pre['html'];
+    }
+    catch (Exception $e)
+    {
+        $live_html = '';
+    }
 
     // Create the filepaths for the Preview & Live versions of the template
     $template_filename = explode('/', $filename);
@@ -83,13 +90,13 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
     $template_filename[1] = 'live';
     $template_filename_live = implode('/', $template_filename);
 
-    // TODO: Per the YAML Config, swap in preview values
     $preview_html = $live_html;
-    foreach ($template_config['_tags_field_value'] as $key => $value) {
-        $preview_html = str_replace($key, $value, $preview_html);
+    if (isset($template_config['_tags_field_value'])) {
+        foreach ($template_config['_tags_field_value'] as $key => $value) {
+            $preview_html = str_replace($key, $value, $preview_html);
+        }
     }
-
-    if ($template_config['_email_test']) {
+    if (isset($template_config['_email_test']) && $template_config['_email_test']) {
         // We're going to send the test email using Mandrill to the specified addresses
         // TODO: Fall back to an address stored in config/general.yaml
 
