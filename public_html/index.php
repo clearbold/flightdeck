@@ -107,8 +107,6 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
 
         $async = false;
         $result = $mandrill->messages->send($message, $async);
-
-        var_dump($result);
     }
 
     // Write the updated preview file
