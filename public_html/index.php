@@ -16,7 +16,7 @@ $config_file = file_get_contents('../dispatchwire/config/general.yaml');
 $config_contents = explode('---', $config_file);
 $global_config = Dipper::parse($config_contents[1]);
 
-$mandrill = new Mandrill($global_config['mandrill_api_key']);
+$mandrill = new Mandrill($global_config['_mandrill_api_key']);
 
 $view = $app->view();
 $view->parserOptions = array(
@@ -72,7 +72,7 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
 
     // Pass the template's HTML to the Premailer API
     $pre = Premailer::html(trim($template_contents[2]));
-    $html = $pre['html'];
+    $live_html = $pre['html'];
 
     // Create the filepaths for the Preview & Live versions of the template
     $template_filename = explode('/', $filename);
@@ -83,11 +83,17 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
     $template_filename[1] = 'live';
     $template_filename_live = implode('/', $template_filename);
 
-    // TODO: Per the YAML Config, swap in preview values, send test emails
+    // TODO: Per the YAML Config, swap in preview values
+    $preview_html = $live_html;
+    foreach ($template_config['_tags_field_value'] as $key => $value) {
+        $preview_html = str_replace($key, $value, $preview_html);
+    }
 
     if ($template_config['_email_test']) {
         // We're going to send the test email using Mandrill to the specified addresses
         // TODO: Fall back to an address stored in config/general.yaml
+
+        // Fetch _test_addresses from template YAML
         $test_addresses = array();
         foreach ($template_config['_test_addresses'] as $address) {
             $test_addresses[] = array(
@@ -97,7 +103,7 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
             );
         }
         $message = array(
-            'html' => $html,
+            'html' => $preview_html,
             'text' => '',
             'subject' => 'PREVIEW ' . $template_config['_subject'],
             'from_email' => $template_config['_sender_email'],
@@ -110,9 +116,9 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
     }
 
     // Write the updated preview file
-    $preview_file = file_force_contents($template_filename_preview, $html);
+    $preview_file = file_force_contents($template_filename_preview, $preview_html);
     // Write the updated live file
-    $live_file = file_force_contents($template_filename_live, $html);
+    $live_file = file_force_contents($template_filename_live, $live_html);
 
     $app->response->headers->set('Content-Type', 'application/json');
     echo json_encode(array(

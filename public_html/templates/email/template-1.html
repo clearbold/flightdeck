@@ -1,9 +1,9 @@
 ---
 _pin_to_top: false
 _tags_field_value:
-    firstname: John
-    lastname: Smith
-    email: someone@somewhere.com
+    [firstname]: John
+    [lastname]: Smith
+    [email]: someone@somewhere.com
 _unsubscribe_tag: "<unsubscribe>%</unsubscribe>"
 _email_test: true
 _test_addresses:
@@ -22,6 +22,7 @@ _sender_name: 'John Smith'
 </style>
 </head>
 <body>
+    <p>Dear [firstname] [lastname],</p>
     <p>Some text to inline styles on.</p>
 </body>
 </html>

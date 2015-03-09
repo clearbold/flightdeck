@@ -1,3 +1,7 @@
 ---
-mandrill_api_key: ''
+_mandrill_api_key: ''
+_sender_email: ''
+_sender_name: ''
+_test_addresses:
+    - test@test.com
 ---
