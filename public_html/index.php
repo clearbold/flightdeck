@@ -39,17 +39,22 @@ $app->get('/', function () use ($app) {
     // L1 files
     $i = 0;
     foreach ($files_email as $filename) {
-        $file_tree_email[] = array('item_name' => explode('/',$filename)[count(explode('/',$filename))-1], 'item_type' => 'file', 'item_level' => 'l1', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename) );
+        $filename_file = explode('/',$filename)[count(explode('/',$filename))-1];
+        $filename_live = str_replace('templates', 'live', $filename);
+        $file_tree_email[] = array('item_name' => $filename_file, 'item_type' => 'file', 'item_level' => 'l1', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename), 'item_last_build' => date("m-d-Y H:i:s.", filemtime($filename_live)) );
         $i++;
     }
     // L1 dirs
     $i = 0;
     foreach ($dirs_email as $dirname) {
-        $file_tree_email[] = array('item_name' => explode('/',$dirname)[count(explode('/',$dirname))-1], 'item_type' => 'dir', 'item_level' => 'l1', 'item_cycle' => '', 'item_template_name' => str_replace('/', '::', $dirname) );
+        $dirname_dir = explode('/',$dirname)[count(explode('/',$dirname))-1];
+        $file_tree_email[] = array('item_name' => $dirname_dir, 'item_type' => 'dir', 'item_level' => 'l1', 'item_cycle' => '', 'item_template_name' => str_replace('/', '::', $dirname), 'item_last_build' => '' );
         // L2 files›
         $i = 0;
         foreach (glob("$dirname/*") as $filename) {
-            $file_tree_email[] = array('item_name' => explode('/',$filename)[count(explode('/',$filename))-1], 'item_type' => 'file', 'item_level' => 'l2', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename) );
+            $filename_file = explode('/',$filename)[count(explode('/',$filename))-1];
+            $filename_live = str_replace('templates', 'live', $filename);
+            $file_tree_email[] = array('item_name' => $filename_file, 'item_type' => 'file', 'item_level' => 'l2', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename), 'item_last_build' => date("m-d-Y H:i:s.", filemtime($filename_live)) );
             $i++;
         }
     }
@@ -73,7 +78,7 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
     $template_html = trim($template_contents[2]);
     $snippets = array();
     $snippet_tags_found = preg_match_all( "/(\{\{\s*snippets\.([a-z0-9A-Z\-_]+)\s*\}\})/", $template_html, $snippets );
-    var_dump($snippets);
+
     $i = 0;
     foreach($snippets[2] as $tag_filename) {
         $snippet_filename = './snippets/email/' . $tag_filename . '.html';
@@ -148,7 +153,8 @@ $app->get('/build/:template', function($template) use ($app, $mandrill) {
 
     $app->response->headers->set('Content-Type', 'application/json');
     echo json_encode(array(
-        "status" => true
+        "status" => true,
+        "lastBuild" => date("m-d-Y H:i:s.", filemtime($template_filename_live))
     ));
 
 });
