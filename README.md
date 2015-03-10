@@ -56,3 +56,12 @@ Refer to `public_html/templates/email/template-1.html` for examples.
 ### To Do
 
 Lots! This is just a starting point with functional code. It needs organization, error handling, and further work on additional features.
+
+#### Planned Features
+
+* Hidden files and folders: Templates and template directories hidden from the website list
+* Snippets: Chunks of code that can be included in any of your templates
+* Single template test URLs: A single template view with a test button and responsive viewports to load the preview in
+* Environment variables: Per-server/computer values in the global config
+* Last built timestamp on each template
+* Error logging for builds
