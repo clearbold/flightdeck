@@ -1,5 +1,6 @@
 {% extends "_layouts/base.html" %}
 {% block content %}
+<h2>Email Templates</h2>
     <ul>
 {% for item in file_tree %}
         <li class="{{ item.item_cycle }} {{ item.item_type }} {{ item.item_level }}">{{ item.item_name }}{% if item.item_type=='file' %}<a href="#" class="build-link" data-template-name="{{ item.item_template_name }}">Build</a>{% endif %}</li>

@@ -1,9 +1,16 @@
-# dispatchwire
-DispatchWire Email Platform
+# DispatchWire Email Platform
 
 An HTML email development toolset with bigger aspirations.
 
-DispatchWire supports basic personalization tag swapping, inlining styles, and sending test emails. It runs as a PHP website on a localhost URL.
+DispatchWire supports HTML email development workflow. It runs as a PHP website on a localhost URL.
+
+### Features
+
+* Test emails via Mandrill
+* Inlining of CSS styles via Preflight
+* Basic personalization tag swapping - More to come!
+* Reusable code snippets
+* Use your desktop editor/IDE of choice
 
 ### How It Works
 
@@ -53,6 +60,10 @@ This will install all of DispatchWire's dependencies locally, within the `dispat
 
 Refer to `public_html/templates/email/sample.html` for examples.
 
+### Snippets
+
+Any tags in the format `{{ snippets.snippet-name }}`, where `snippet-name` matches the non-`.html` portion of a file in the `snippets` folder will be replaced by the contents of the corresponding file. Unmatched snippets tags will not be replaced and will be rendered in the live and preview templates.
+
 ### To Do
 
 Lots! This is just a starting point with functional code. It needs organization, error handling, and further work on additional features.
@@ -65,4 +76,5 @@ Lots! This is just a starting point with functional code. It needs organization,
 * Single template test URLs: A single template view with a test button and responsive viewports to load the preview in
 * Environment variables: Per-server/computer values in the global config
 * Last built timestamp on each template
+* Preview link on each template: In the meantime, just refresh the template's `preview/email` URLs
 * Error logging for builds

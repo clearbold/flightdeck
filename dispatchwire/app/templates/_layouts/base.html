@@ -9,6 +9,22 @@
             font-family: sans-serif;
             margin: 0;
             padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-text-size-adjust:none !important; -ms-text-size-adjust:none !important;
+        }
+        body {
+            padding-top: 20px;
+        }
+        div.wrapper {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 0px 20px;
+            width: 100%;
+        }
+        h2 {
+            padding-left: 10px;
         }
         ul {
             list-style: none;
@@ -52,8 +68,10 @@
     </style>
 </head>
 <body>
+    <div class="wrapper">
 {% block content %}
 
 {% endblock content %}
+    </div>
 </body>
 </html>
