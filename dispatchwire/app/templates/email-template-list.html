@@ -4,7 +4,7 @@
     <ul>
 {% for item in file_tree %}
         <li class="{{ item.item_cycle }} {{ item.item_type }} {{ item.item_level }}">
-            {{ item.item_name }}{% if item.item_type=='file' %} <span class="timestamp">Last build: {{ item.item_last_build }}</span> <a href="{{ item.item_preview_link }}" target="_blank" class="preview-link">Preview</a><a href="#" class="build-link" data-template-name="{{ item.item_template_name }}">Build</a>{% endif %}
+            {{ item.item_name }}{% if item.item_type=='file' %} <span class="timestamp">Last build: {{ item.item_last_build }}</span> <a href="{{ item.item_preview_link }}" target="_blank" class="preview-link">Preview</a><a href="#" class="build-link" data-template-name="{{ item.item_template_name }}"> {% if item.item_test == 'true' %}Build &amp; Test{% else %}Build{% endif %}</a>{% endif %}
         </li>
 {% endfor %}
     </ul>

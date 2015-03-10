@@ -77,4 +77,6 @@ Lots! This is just a starting point with functional code. It needs organization,
 * [ ] Environment variables: Per-server/computer values in the global config
 * [x] <strike>Last built timestamp on each template</strike>
 * [x] <strike>Preview link on each template: In the meantime, just refresh the template's `preview/email` URLs</strike>
+* [x] <strike>"Build & Test" links where `_email_test: true`</strike>
+* [ ] List `_pin_to_top: true` templates at the top of the list for quick access
 * [ ] Error logging for builds
