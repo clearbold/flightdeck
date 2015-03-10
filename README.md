@@ -72,7 +72,7 @@ Lots! This is just a starting point with functional code. It needs organization,
 
 * Move everything into DispatchWire classes
 * Hidden files and folders: Templates and template directories hidden from the website list
-* Snippets: Chunks of code that can be included in any of your templates
+* Done! <strike>Snippets: Chunks of code that can be included in any of your templates</strike>
 * Single template test URLs: A single template view with a test button and responsive viewports to load the preview in
 * Environment variables: Per-server/computer values in the global config
 * Last built timestamp on each template
