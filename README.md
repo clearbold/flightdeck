@@ -70,11 +70,11 @@ Lots! This is just a starting point with functional code. It needs organization,
 
 #### Planned Features
 
-* Move everything into DispatchWire classes
-* Hidden files and folders: Templates and template directories hidden from the website list
-* Done! <strike>Snippets: Chunks of code that can be included in any of your templates</strike>
-* Single template test URLs: A single template view with a test button and responsive viewports to load the preview in
-* Environment variables: Per-server/computer values in the global config
-* Done! <strike>Last built timestamp on each template</strike>
-* Preview link on each template: In the meantime, just refresh the template's `preview/email` URLs
-* Error logging for builds
+* [ ] Move everything into DispatchWire classes
+* [ ] Hidden files and folders: Templates and template directories hidden from the website list
+* [x] <strike>Snippets: Chunks of code that can be included in any of your templates</strike>
+* [ ] Single template test URLs: A single template view with a test button and responsive viewports to load the preview in
+* [ ] Environment variables: Per-server/computer values in the global config
+* [x] <strike>Last built timestamp on each template</strike>
+* [ ] Preview link on each template: In the meantime, just refresh the template's `preview/email` URLs
+* [ ] Error logging for builds
