@@ -33,9 +33,10 @@
         }
         li {
             font-size: 14px;
-            line-height: 2em;
+            line-height: 28px;
             margin-bottom: 1px;
             padding: 5px 20px 5px 5px;
+            position: relative;
         }
             li.l1.odd,
             li.l2.odd {
@@ -48,13 +49,22 @@
                 background: #fcf6df;
             }
 
-            a.build-link {
+            li > a {
                 color: #0074d9;
                 display: inline-block;
-                float: right;
                 font-size: .9em;
+                line-height: 28px;
                 padding: 0 15px;
+                position: absolute;
+                right: 0;
                 text-decoration: none;
+                top: 5px;
+            }
+            a.build-link {
+                right: 0;
+            }
+            a.preview-link {
+                right: 80px;
             }
             a.build-pending {
                 color: #fee226;

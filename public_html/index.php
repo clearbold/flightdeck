@@ -41,20 +41,22 @@ $app->get('/', function () use ($app) {
     foreach ($files_email as $filename) {
         $filename_file = explode('/',$filename)[count(explode('/',$filename))-1];
         $filename_live = str_replace('templates', 'live', $filename);
-        $file_tree_email[] = array('item_name' => $filename_file, 'item_type' => 'file', 'item_level' => 'l1', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename), 'item_last_build' => date("m-d-Y H:i:s.", filemtime($filename_live)) );
+        $filename_preview =  str_replace('templates', 'preview', $filename);
+        $file_tree_email[] = array('item_name' => $filename_file, 'item_type' => 'file', 'item_level' => 'l1', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename), 'item_preview_link' => $filename_preview, 'item_last_build' => date("m-d-Y H:i:s.", filemtime($filename_live)) );
         $i++;
     }
     // L1 dirs
     $i = 0;
     foreach ($dirs_email as $dirname) {
         $dirname_dir = explode('/',$dirname)[count(explode('/',$dirname))-1];
-        $file_tree_email[] = array('item_name' => $dirname_dir, 'item_type' => 'dir', 'item_level' => 'l1', 'item_cycle' => '', 'item_template_name' => str_replace('/', '::', $dirname), 'item_last_build' => '' );
+        $file_tree_email[] = array('item_name' => $dirname_dir, 'item_type' => 'dir', 'item_level' => 'l1', 'item_cycle' => '', 'item_template_name' => str_replace('/', '::', $dirname), 'item_preview_link' => '', 'item_last_build' => '' );
         // L2 files›
         $i = 0;
         foreach (glob("$dirname/*") as $filename) {
             $filename_file = explode('/',$filename)[count(explode('/',$filename))-1];
             $filename_live = str_replace('templates', 'live', $filename);
-            $file_tree_email[] = array('item_name' => $filename_file, 'item_type' => 'file', 'item_level' => 'l2', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename), 'item_last_build' => date("m-d-Y H:i:s.", filemtime($filename_live)) );
+            $filename_preview =  str_replace('templates', 'preview', $filename);
+            $file_tree_email[] = array('item_name' => $filename_file, 'item_type' => 'file', 'item_level' => 'l2', 'item_cycle' => ($i % 2 == 0) ? 'even' : 'odd', 'item_template_name' => str_replace('/', '::', $filename), 'item_preview_link' => $filename_preview, 'item_last_build' => date("m-d-Y H:i:s.", filemtime($filename_live)) );
             $i++;
         }
     }
