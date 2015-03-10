@@ -21,7 +21,7 @@
             }).done(function(data) {
                 $(this).removeClass('build-pending');
                 $(this).addClass('build-successful');
-                $(this).prev('span.timestamp').text('Last build: ' + data.lastBuild);
+                $(this).prev().prev('span.timestamp').text('Last build: ' + data.lastBuild);
             });
         })
     </script>
