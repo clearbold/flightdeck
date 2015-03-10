@@ -28,10 +28,11 @@ Those delimeters are required in every template, even if empty.
 
 When you hit the **Build** link for any of your templates, the following steps are run:
 
-1. The HTML template is run through the [premailer.dialect.ca](http://premailer.dialect.ca/) API to inline your styles.
-2. Any tags you've defined in `_tags_field_value` are swapped in your template Preview, which is the version that gets sent as a test email.
-3. If `_email_test` is set to `true`, a test email is sent to your specified `_test_addresses` via your [Mandrill](https://mandrillapp.com) API key.
-4. The Preview version of the email, inlined and with tag values swapped, is stored in your `preview` directory, and a Live version, with personalization tags intact, is stored in your `live` directory.
+1. Snippets are swapped in to your live & preview templates.
+2. The HTML template is run through the [premailer.dialect.ca](http://premailer.dialect.ca/) API to inline your styles.
+3. Any tags you've defined in `_tags_field_value` are swapped in your template Preview, which is the version that gets sent as a test email.
+4. If `_email_test` is set to `true`, a test email is sent to your specified `_test_addresses` via your [Mandrill](https://mandrillapp.com) API key.
+5. The Preview version of the email, inlined and with tag values swapped, is stored in your `preview` directory, and a Live version, with personalization tags intact, is stored in your `live` directory.
 
 This makes it easy to:
 
