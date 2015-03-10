@@ -1,13 +1,13 @@
-# DispatchWire Email Platform
+# FlightDeck Email Platform
 
-An HTML email development toolset with bigger aspirations.
+An HTML email development toolset with bigger aspirations from [Clearbold](http://clearbold.com).
 
-DispatchWire supports HTML email development workflow. It runs as a PHP website on a localhost URL.
+FlightDeck supports HTML email development workflow. It runs as a PHP website on a localhost URL.
 
 ### Features
 
 * Test emails via Mandrill
-* Inlining of CSS styles via Preflight
+* Inlining of CSS styles via Premailer
 * Basic personalization tag swapping - More to come!
 * Reusable code snippets
 * Use your desktop editor/IDE of choice
@@ -37,7 +37,7 @@ When you hit the **Build** link for any of your templates, the following steps a
 This makes it easy to:
 
 1. Refresh your Preview URL locally as you work on your email templates
-2. Push your DispatchWire codebase, along with your Preview templates, to a remote URL to share those with your team for review
+2. Push your FlightDeck codebase, along with your Preview templates, to a remote URL to share those with your team for review
 3. Easily fire off test emails to your inbox or your [Litmus](https://litmus.com) account address
 3. And provides a Live email ready to post to your Email Service Provider.
 
@@ -45,17 +45,17 @@ This makes it easy to:
 
 I aim to support default global values for all configurable settings. Presently the only value stored in the global config is your Mandrill API Key.
 
-To set your API key value, copy `dispatchwire/config/sample-general.yaml` to `dispatchwire/config/general.yaml` and enter your API key between the empty single quotes.
+To set your API key value, copy `flightdeck/config/sample-general.yaml` to `flightdeck/config/general.yaml` and enter your API key between the empty single quotes.
 
 ### Installation
 
-If you don't have Composer, you can [install it within the root `dispatchwire` directory](https://getcomposer.org/doc/00-intro.md#locally), at the same level as `dispatchwire`, `public_html`, and `composer.json`. Once you've done so, run:
+If you don't have Composer, you can [install it within the root project directory](https://getcomposer.org/doc/00-intro.md#locally), at the same level as `flightdeck`, `public_html`, and `composer.json`. Once you've done so, run:
 
 ```
 php composer.phar install
 ```
 
-This will install all of DispatchWire's dependencies locally, within the `dispatchwire/app/vendor` directory.
+This will install all of FlightDeck's dependencies locally, within the `flightdeck/app/vendor` directory.
 
 ### Usage
 
@@ -71,7 +71,7 @@ Lots! This is just a starting point with functional code. It needs organization,
 
 #### Planned Features
 
-* [ ] Move everything into DispatchWire classes
+* [ ] Move everything into FlightDeck classes
 * [x] <strike>Hidden files and folders: Templates and template directories hidden from the website list</strike>
 * [x] <strike>Snippets: Chunks of code that can be included in any of your templates</strike>
 * [ ] Single template test URLs: A single template view with a test button and responsive viewports to load the preview in

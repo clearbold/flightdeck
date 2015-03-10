@@ -1,6 +1,6 @@
 {
     "config": {
-        "vendor-dir": "./dispatchwire/app/vendor"
+        "vendor-dir": "./flightdeck/app/vendor"
     },
     "require": {
         "twig/twig": "~1.18",

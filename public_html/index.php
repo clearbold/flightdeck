@@ -1,7 +1,7 @@
 <?php
 
-require '../dispatchwire/app/vendor/autoload.php';
-require '../dispatchwire/app/lib/Premailer.php';
+require '../flightdeck/app/vendor/autoload.php';
+require '../flightdeck/app/lib/Premailer.php';
 
 $app = new \Slim\Slim(array(
     'view' => new \Slim\Views\Twig()
@@ -11,7 +11,7 @@ use secondparty\Dipper\Dipper as Dipper;
 // TODO: Move global config stuff to the right place
 // TODO: Move reading YAML to somewhere central
 // Get the contents of the file as a string
-$config_file = file_get_contents('../dispatchwire/config/general.yaml');
+$config_file = file_get_contents('../flightdeck/config/general.yaml');
 // Delineate the YAML front matter and template HTML
 $config_contents = explode('---', $config_file);
 $global_config = Dipper::parse($config_contents[1]);
@@ -21,10 +21,10 @@ $mandrill = new Mandrill($global_config['_mandrill_api_key']);
 $view = $app->view();
 $view->parserOptions = array(
     'debug' => true,
-    'cache' => dirname(__FILE__) . '/../dispatchwire/cache'
+    'cache' => dirname(__FILE__) . '/../flightdeck/cache'
 );
 $view->twigTemplateDirs = array(
-    '../dispatchwire/app/templates'
+    '../flightdeck/app/templates'
 );
 
 $app->get('/', function () use ($app) {
