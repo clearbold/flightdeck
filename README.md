@@ -24,7 +24,7 @@ variable: value
 ---
 ```
 
-Those delimeters are required.
+Those delimeters are required in every template, even if empty.
 
 When you hit the **Build** link for any of your templates, the following steps are run:
 
