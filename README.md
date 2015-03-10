@@ -62,7 +62,7 @@ Refer to `public_html/templates/email/sample.html` for examples.
 
 ### Snippets
 
-Any tags in the format `{{ snippets.snippet-name }}`, where `snippet-name` matches the non-`.html` portion of a file in the `snippets` folder will be replaced by the contents of the corresponding file. Unmatched snippets tags will not be replaced and will be rendered in the live and preview templates.
+Any tags in the format `{{ snippets.snippet-name }}`, where `snippet-name` matches the non-`.html` portion of the name of a file in the `snippets` folder will be replaced by the contents of the corresponding file. Unmatched snippets tags will not be replaced and will be rendered in the live and preview templates.
 
 ### To Do
 
