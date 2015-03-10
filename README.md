@@ -9,7 +9,7 @@ DispatchWire supports basic personalization tag swapping, inlining styles, and s
 
 Any templates that reside in the `public_html/templates/email` folder, directly or within 1 level of organizational folders, are available to build & test. You can view that list of templates at your root website URL.
 
-All templates support YAML front matter, for per-template configuration and testing values. YAML front matter resides between the
+All templates support YAML front matter, for per-template configuration and testing values. YAML front matter resides between the `---` delimeters at the top of each template file, like so:
 
 ```
 ---
@@ -17,7 +17,7 @@ variable: value
 ---
 ```
 
-delimeters at the top of each template file. Those delimeters are required.
+Those delimeters are required.
 
 When you hit the **Build** link for any of your templates, the following steps are run:
 
@@ -51,7 +51,7 @@ This will install all of DispatchWire's dependencies locally, within the `dispat
 
 ### Usage
 
-Refer to `public_html/templates/email/template-1.html` for examples.
+Refer to `public_html/templates/email/sample.html` for examples.
 
 ### To Do
 
