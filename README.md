@@ -14,7 +14,7 @@ FlightDeck supports HTML email development workflow. It runs as a PHP website on
 
 ### How It Works
 
-Any templates that reside in the `public_html/templates/email` folder, directly or within 1 level of organizational folders, are available to build & test. You can view that list of templates at your root website URL.
+Any templates that reside in the `public_html/templates/email` folder, directly or within 1 level of organizational folders, are available to build & test. You can view that list of templates at your website's `/console` URL.
 
 All templates support YAML front matter, for per-template configuration and testing values. YAML front matter resides between the `---` delimeters at the top of each template file, like so:
 

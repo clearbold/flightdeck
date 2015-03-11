@@ -13,11 +13,16 @@ $view->twigTemplateDirs = array(
     FLIGHTDECK_PATH . '/app/templates'
 );
 
+$app->get('/', function() use ($app)
+{
+    echo '';
+});
+
 /**
  * Default page, loads list of email templates
  * @return rendered Twig template as HTML
  */
-$app->get('/', function () use ($app)
+$app->get('/console', function() use ($app)
 {
 
     $console = new Console;
