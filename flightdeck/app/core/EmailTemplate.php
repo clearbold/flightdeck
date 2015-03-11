@@ -1,20 +1,20 @@
 <?php
 
+namespace FlightDeck\EmailTemplate;
+
 use secondparty\Dipper\Dipper as Dipper;
 
-class Template {
+class EmailTemplate {
 
-    public static function buildEmailTemplate($template) {
+    public function buildEmailTemplate($template) {
 
-        // TODO: Move global config stuff to the right place
-        // TODO: Move reading YAML to somewhere central
         // Get the contents of the file as a string
         $config_file = file_get_contents('../flightdeck/config/general.yaml');
         // Delineate the YAML front matter and template HTML
         $config_contents = explode('---', $config_file);
         $global_config = Dipper::parse($config_contents[1]);
 
-        $mandrill = new Mandrill($global_config['_mandrill_api_key']);
+        $mandrill = new \Mandrill($global_config['_mandrill_api_key']);
 
         // Fetch the template's filename from the request, convert it back to a filepath
         $filename = str_replace('::', '/', $template);
@@ -44,7 +44,7 @@ class Template {
         // Pass the template's HTML to the Premailer API
         try
         {
-            $pre = Premailer::html($template_html);
+            $pre = \Premailer::html($template_html);
             $live_html = $pre['html'];
         }
         catch (Exception $e)
@@ -98,14 +98,22 @@ class Template {
         }
 
         // Write the updated preview file
-        $preview_file = file_force_contents($template_filename_preview, $preview_html);
+        $preview_file = $this->file_force_contents($template_filename_preview, $preview_html);
         // Write the updated live file
-        $live_file = file_force_contents($template_filename_live, $live_html);
+        $live_file = $this->file_force_contents($template_filename_live, $live_html);
 
         return array(
             "status" => true,
             "lastBuild" => date("m-d-Y H:i:s", filemtime($template_filename_live))
         );
+    }
+
+    // http://php.net/manual/en/function.file-put-contents.php
+    protected function file_force_contents($filename, $data, $flags = 0)
+    {
+        if(!is_dir(dirname($filename)))
+            mkdir(dirname($filename).'/', 0777, TRUE);
+        return file_put_contents($filename, $data,$flags);
     }
 
 }

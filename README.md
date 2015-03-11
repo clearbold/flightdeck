@@ -81,3 +81,5 @@ Lots! This is just a starting point with functional code. It needs organization,
 * [x] <strike>"Build & Test" links where `_email_test: true`</strike>
 * [ ] List `_pin_to_top: true` templates at the top of the list for quick access
 * [ ] Error logging for builds
+* [ ] Install templates in ESPs via API
+* [ ] Handle small volume email blasts

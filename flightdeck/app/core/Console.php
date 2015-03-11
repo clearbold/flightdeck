@@ -1,5 +1,7 @@
 <?php
 
+namespace FlightDeck\Console;
+
 use secondparty\Dipper\Dipper as Dipper;
 
 class Console {

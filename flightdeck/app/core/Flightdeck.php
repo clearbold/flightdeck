@@ -1,4 +1,6 @@
+<?php
 
+namespace FlightDeck\FlightDeck;
 
 /*
 // register autoloader
