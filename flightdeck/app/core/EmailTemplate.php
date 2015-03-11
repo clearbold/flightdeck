@@ -77,16 +77,17 @@ class EmailTemplate
         }
 
         // Send email test
-        if (isset($this->template_config['_email_test']) && $this->template_config['_email_test']) {
+        if (isset($this->templateConfig()['_email_test']) && $this->templateConfig()['_email_test']) {
 
             $mandrill = new \Mandrill(Config::getConfig()['_mandrill_api_key']);
 
             // We're going to send the test email using Mandrill to the specified addresses
             // TODO: Fall back to an address stored in config/general.yaml
+            // (Needs to happen in the config function)
 
             // Fetch _test_addresses from template YAML
             $test_addresses = array();
-            foreach ($this->template_config['_test_addresses'] as $address) {
+            foreach ($this->templateConfig()['_test_addresses'] as $address) {
                 $test_addresses[] = array(
                     'email' => $address,
                     'name' => '',
@@ -96,9 +97,9 @@ class EmailTemplate
             $message = array(
                 'html' => $preview_html,
                 'text' => '',
-                'subject' => 'PREVIEW ' . $this->template_config['_subject'],
-                'from_email' => $this->template_config['_sender_email'],
-                'from_name' => $this->template_config['_sender_name'],
+                'subject' => 'PREVIEW ' . $this->templateConfig()['_subject'],
+                'from_email' => $this->templateConfig()['_sender_email'],
+                'from_name' => $this->templateConfig()['_sender_name'],
                 'to' => $test_addresses
             );
 
