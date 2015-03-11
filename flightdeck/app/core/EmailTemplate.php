@@ -2,6 +2,7 @@
 
 namespace FlightDeck;
 
+use \FlightDeck\Config as Config;
 use secondparty\Dipper\Dipper as Dipper;
 
 class EmailTemplate
@@ -9,13 +10,7 @@ class EmailTemplate
 
     public function buildEmailTemplate($template) {
 
-        // Get the contents of the file as a string
-        $config_file = file_get_contents('../flightdeck/config/general.yaml');
-        // Delineate the YAML front matter and template HTML
-        $config_contents = explode('---', $config_file);
-        $global_config = Dipper::parse($config_contents[1]);
-
-        $mandrill = new \Mandrill($global_config['_mandrill_api_key']);
+        $mandrill = new \Mandrill(Config::getConfig()['_mandrill_api_key']);
 
         // Fetch the template's filename from the request, convert it back to a filepath
         $filename = str_replace('::', '/', $template);
@@ -109,7 +104,7 @@ class EmailTemplate
         );
     }
 
-    // file_force_contents / http://php.net/manual/en/function.file-put-contents.php
+    // file_force_contents from http://php.net/manual/en/function.file-put-contents.php
     protected function writeFile($filename, $data, $flags = 0)
     {
         if(!is_dir(dirname($filename)))

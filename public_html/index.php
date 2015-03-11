@@ -12,11 +12,11 @@ require FLIGHTDECK_PATH . '/app/vendor/autoload.php';
 require FLIGHTDECK_PATH . '/app/core/Flightdeck.php';
 require FLIGHTDECK_PATH . '/app/lib/Premailer.php';
 
+spl_autoload_register('\FlightDeck\Autoload::core');
+
 $app = new \Slim\Slim(array(
     'view' => new \Slim\Views\Twig()
 ));
-
-spl_autoload_register('\FlightDeck\Autoload::core');
 
 require FLIGHTDECK_PATH . '/routes.php';
 
