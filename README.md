@@ -26,6 +26,8 @@ variable: value
 
 Those delimeters are required in every template, even if empty.
 
+![Screenshot of FlightDeck](http://clearbold.com/ui/img/flightdeck.png)
+
 When you hit the **Build** link for any of your templates, the following steps are run:
 
 1. Snippets are swapped in to your live & preview templates.
