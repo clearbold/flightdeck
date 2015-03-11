@@ -22,7 +22,8 @@ $app->get('/', function () use ($app)
 
     $console = new Console;
 
-    $app->render('email-template-list.html', array( 'file_tree' => $console->listEmailTemplates() ));
+    $app->render('email-template-list.html',
+        array( 'file_tree' => $console->listEmailTemplates() ));
 
 });
 
@@ -35,9 +36,28 @@ $app->get('/', function () use ($app)
 $app->get('/build/:template', function($requestedTemplate) use ($app)
 {
 
-    $template = new EmailTemplate(str_replace('::', '/', filter_var($requestedTemplate, FILTER_SANITIZE_STRING)));
+    $template = new EmailTemplate(str_replace('::',
+        '/', filter_var($requestedTemplate, FILTER_SANITIZE_STRING)));
 
     $app->response->headers->set('Content-Type', 'application/json');
     echo json_encode($template->buildEmailTemplate());
 
+});
+
+$app->get('/ui/css/styles.css', function() use ($app)
+{
+    $app->response->headers->set('Content-Type', 'text/css');
+    echo file_get_contents(FLIGHTDECK_PATH . '/resources/css/styles.css');
+});
+
+$app->get('/ui/js/vendor/jquery.js', function() use ($app)
+{
+    $app->response->headers->set('Content-Type', 'text/javascript');
+    echo file_get_contents(FLIGHTDECK_PATH . '/resources/js/vendor/jquery.js');
+});
+
+$app->get('/ui/js/scripts.js', function() use ($app)
+{
+    $app->response->headers->set('Content-Type', 'text/javascript');
+    echo file_get_contents(FLIGHTDECK_PATH . '/resources/js/scripts.js');
 });
