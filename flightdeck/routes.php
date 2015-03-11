@@ -1,9 +1,7 @@
 <?php
 
-use secondparty\Dipper\Dipper as Dipper;
-
-$console = new \FlightDeck\Console\Console();
-$template = new \FlightDeck\EmailTemplate\EmailTemplate();
+use \FlightDeck\Console as Console;
+use \FlightDeck\EmailTemplate as EmailTemplate;
 
 $view = $app->view();
 $view->parserOptions = array(
@@ -14,8 +12,10 @@ $view->twigTemplateDirs = array(
     $flightdeck_path . '/app/templates'
 );
 
-$app->get('/', function () use ($app, $console)
+$app->get('/', function () use ($app)
 {
+
+    $console = new Console;
 
     $file_tree_email = $console->listEmailTemplates();
 
@@ -23,8 +23,10 @@ $app->get('/', function () use ($app, $console)
 
 });
 
-$app->get('/build/:template', function($requestedTemplate) use ($app, $template)
+$app->get('/build/:template', function($requestedTemplate) use ($app)
 {
+
+    $template = new EmailTemplate;
 
     $response = $template->buildEmailTemplate($requestedTemplate);
 

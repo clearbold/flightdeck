@@ -1,18 +1,23 @@
 <?php
 
-namespace FlightDeck\Console;
+namespace FlightDeck;
 
 use secondparty\Dipper\Dipper as Dipper;
 
-class Console {
+class Console
+{
 
     public static function listEmailTemplates() {
-        // Supporting a max of 2 email levels to organize templates by client
-        $dirs_email = glob("./templates/email/*", GLOB_ONLYDIR);
-        $all_email = glob("./templates/email/*");
-        $files_email = array_diff($all_email, $dirs_email);
 
         $file_tree_email = array();
+
+        // Supporting a max of 2 email levels to organize templates by client
+        // First get the directories at L1
+        $dirs_email = glob("./templates/email/*", GLOB_ONLYDIR);
+        // Then get the files at L1
+        $all_email = glob("./templates/email/*");
+        // Then subtract the directories to list just the L1 files first
+        $files_email = array_diff($all_email, $dirs_email);
 
         // L1 files
         $i = 0;

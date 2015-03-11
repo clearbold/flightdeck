@@ -1,10 +1,11 @@
 <?php
 
-namespace FlightDeck\EmailTemplate;
+namespace FlightDeck;
 
 use secondparty\Dipper\Dipper as Dipper;
 
-class EmailTemplate {
+class EmailTemplate
+{
 
     public function buildEmailTemplate($template) {
 
@@ -98,9 +99,9 @@ class EmailTemplate {
         }
 
         // Write the updated preview file
-        $preview_file = $this->file_force_contents($template_filename_preview, $preview_html);
+        $preview_file = $this->writeFile($template_filename_preview, $preview_html);
         // Write the updated live file
-        $live_file = $this->file_force_contents($template_filename_live, $live_html);
+        $live_file = $this->writeFile($template_filename_live, $live_html);
 
         return array(
             "status" => true,
@@ -108,8 +109,8 @@ class EmailTemplate {
         );
     }
 
-    // http://php.net/manual/en/function.file-put-contents.php
-    protected function file_force_contents($filename, $data, $flags = 0)
+    // file_force_contents / http://php.net/manual/en/function.file-put-contents.php
+    protected function writeFile($filename, $data, $flags = 0)
     {
         if(!is_dir(dirname($filename)))
             mkdir(dirname($filename).'/', 0777, TRUE);
