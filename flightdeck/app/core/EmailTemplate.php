@@ -8,23 +8,42 @@ use secondparty\Dipper\Dipper as Dipper;
 class EmailTemplate
 {
 
-    public function buildEmailTemplate($template) {
+    private $template_file_path;
+    private $template_file;
+    private $template_contents;
+    private $template_file_path_preview;
+    private $template_file_path_live;
 
-        $mandrill = new \Mandrill(Config::getConfig()['_mandrill_api_key']);
+    public function __construct($template_file_path) {
 
-        // Fetch the template's filename from the request, convert it back to a filepath
-        $filename = str_replace('::', '/', $template);
-        // Get the contents of the file as a string
-        $template_file = file_get_contents($filename);
-        // Delineate the YAML front matter and template HTML
-        $template_contents = explode('---', $template_file);
+        $this->template_file_path = $template_file_path;
+        $this->template_file = file_get_contents($this->template_file_path);
+        $this->template_contents = explode('---', $this->template_file);
 
-        // Use Dipper to parse the YAML front matter into a PHP array
-        $template_config = Dipper::parse($template_contents[1]);
+        // Create the filepaths for the Preview & Live versions of the template
+        $template_filename = explode('/', $this->template_file_path);
+        // Swap in the preview dir
+        $template_filename[1] = 'preview';
+        $this->template_file_path_preview = implode('/', $template_filename);
+        // Swap in the live dir
+        $template_filename[1] = 'live';
+        $this->template_file_path_live = implode('/', $template_filename);
 
-        $template_html = trim($template_contents[2]);
+    }
+
+    public function templateConfig() {
+        // Needs to include global config defaults where template values are not set
+        return Dipper::parse($this->template_contents[1]);
+    }
+
+    public function templateHtml() {
+        return trim($this->template_contents[2]);
+    }
+
+    public function buildEmailTemplate() {
+
         $snippets = array();
-        $snippet_tags_found = preg_match_all( "/(\{\{\s*snippets\.([a-z0-9A-Z\-_]+)\s*\}\})/", $template_html, $snippets );
+        $snippet_tags_found = preg_match_all( "/(\{\{\s*snippets\.([a-z0-9A-Z\-_]+)\s*\}\})/", $this->templateHtml(), $snippets );
 
         $i = 0;
         foreach($snippets[2] as $tag_filename) {
@@ -32,7 +51,7 @@ class EmailTemplate
             if (file_exists($snippet_filename))
             {
                 $snippet_file = file_get_contents($snippet_filename);
-                $template_html = str_replace($snippets[1][$i], $snippet_file, $template_html);
+                $template_html = str_replace($snippets[1][$i], $snippet_file, $this->templateHtml());
             }
             $i++;
         }
@@ -48,32 +67,26 @@ class EmailTemplate
             $live_html = '';
         }
 
-        // Create the filepaths for the Preview & Live versions of the template
-        $template_filename = explode('/', $filename);
-        // Swap in the preview dir
-        $template_filename[1] = 'preview';
-        $template_filename_preview = implode('/', $template_filename);
-        // Swap in the live dir
-        $template_filename[1] = 'live';
-        $template_filename_live = implode('/', $template_filename);
-
         $preview_html = $live_html;
 
         // Swap custom field tags with config values for the preview (not live)
-        if (isset($template_config['_tags_field_value'])) {
-            foreach ($template_config['_tags_field_value'] as $key => $value) {
+        if (isset($this->template_config['_tags_field_value'])) {
+            foreach ($this->template_config['_tags_field_value'] as $key => $value) {
                 $preview_html = str_replace($key, $value, $preview_html);
             }
         }
 
         // Send email test
-        if (isset($template_config['_email_test']) && $template_config['_email_test']) {
+        if (isset($this->template_config['_email_test']) && $this->template_config['_email_test']) {
+
+            $mandrill = new \Mandrill(Config::getConfig()['_mandrill_api_key']);
+
             // We're going to send the test email using Mandrill to the specified addresses
             // TODO: Fall back to an address stored in config/general.yaml
 
             // Fetch _test_addresses from template YAML
             $test_addresses = array();
-            foreach ($template_config['_test_addresses'] as $address) {
+            foreach ($this->template_config['_test_addresses'] as $address) {
                 $test_addresses[] = array(
                     'email' => $address,
                     'name' => '',
@@ -83,9 +96,9 @@ class EmailTemplate
             $message = array(
                 'html' => $preview_html,
                 'text' => '',
-                'subject' => 'PREVIEW ' . $template_config['_subject'],
-                'from_email' => $template_config['_sender_email'],
-                'from_name' => $template_config['_sender_name'],
+                'subject' => 'PREVIEW ' . $this->template_config['_subject'],
+                'from_email' => $this->template_config['_sender_email'],
+                'from_name' => $this->template_config['_sender_name'],
                 'to' => $test_addresses
             );
 
@@ -94,14 +107,15 @@ class EmailTemplate
         }
 
         // Write the updated preview file
-        $preview_file = $this->writeFile($template_filename_preview, $preview_html);
+        $preview_file = $this->writeFile($this->template_file_path_preview, $preview_html);
         // Write the updated live file
-        $live_file = $this->writeFile($template_filename_live, $live_html);
+        $live_file = $this->writeFile($this->template_file_path_live, $live_html);
 
         return array(
             "status" => true,
-            "lastBuild" => date("m-d-Y H:i:s", filemtime($template_filename_live))
+            "lastBuild" => date("m-d-Y H:i:s", filemtime($this->template_file_path_live))
         );
+
     }
 
     // file_force_contents from http://php.net/manual/en/function.file-put-contents.php

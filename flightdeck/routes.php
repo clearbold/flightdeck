@@ -35,9 +35,9 @@ $app->get('/', function () use ($app)
 $app->get('/build/:template', function($requestedTemplate) use ($app)
 {
 
-    $template = new EmailTemplate;
+    $template = new EmailTemplate(str_replace('::', '/', filter_var($requestedTemplate, FILTER_SANITIZE_STRING)));
 
     $app->response->headers->set('Content-Type', 'application/json');
-    echo json_encode($template->buildEmailTemplate(filter_var($requestedTemplate, FILTER_SANITIZE_STRING)));
+    echo json_encode($template->buildEmailTemplate());
 
 });
