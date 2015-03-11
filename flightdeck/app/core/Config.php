@@ -13,6 +13,7 @@ class Config
         $config_file = file_get_contents(FLIGHTDECK_PATH . '/config/general.yaml');
         // Delineate the YAML front matter and template HTML
         $config_contents = explode('---', $config_file);
+
         return Dipper::parse($config_contents[1]);
     }
 

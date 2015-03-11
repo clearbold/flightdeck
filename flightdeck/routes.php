@@ -20,7 +20,9 @@ $view->twigTemplateDirs = array(
 $app->get('/', function () use ($app)
 {
 
-    $app->render('email-template-list.html', array( 'file_tree' => Console::listEmailTemplates() ));
+    $console = new Console;
+
+    $app->render('email-template-list.html', array( 'file_tree' => $console->listEmailTemplates() ));
 
 });
 
