@@ -45,11 +45,13 @@ This makes it easy to:
 
 ### Configuration
 
-I aim to support default global values for all configurable settings. Presently the only value stored in the global config is your Mandrill API Key.
+I aim to support default global values for all configurable settings. Presently the only value stored in the global config is your Mandrill API Key, which you'll need to send test emails. You can use [Mandrill](http://mandrill.com) for free.
 
 To set your API key value, copy `flightdeck/config/sample-general.yaml` to `flightdeck/config/general.yaml` and enter your API key between the empty single quotes.
 
 ### Installation
+
+#### Application
 
 If you don't have Composer, you can [install it within the root project directory](https://getcomposer.org/doc/00-intro.md#locally), at the same level as `flightdeck`, `public_html`, and `composer.json`. Once you've done so, run:
 
@@ -59,9 +61,17 @@ php composer.phar install
 
 This will install all of FlightDeck's dependencies locally, within the `flightdeck/app/vendor` directory.
 
+#### Website
+
+You'll need to point a virtual host at the `public_html` directory. I've been using MAMP for this.
+
 ### Usage
 
-Refer to `public_html/templates/email/sample.html` for examples.
+Refer to `public_html/templates/email/sample.html` for code examples.
+
+#### Build & Test
+
+Visit `[http://yourlocalhost]/console` to view your list of templates. Each will have a Build link. If you enable `_email_test` in your template's YAML, you'll have a Build & Test link.
 
 ### Image Assets
 
