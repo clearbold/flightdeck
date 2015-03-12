@@ -78,7 +78,7 @@ Any tags in the format `{{ snippets.snippet-name }}`, where `snippet-name` match
 
 ### To Do
 
-Lots! This is just a starting point with functional code. It more error handling and further work on additional features.
+Lots! This is just a starting point with functional code. It needs more error handling and further work on additional features.
 
 #### Planned Features
 
