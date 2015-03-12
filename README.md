@@ -109,3 +109,9 @@ Lots! This is just a starting point with functional code. It needs more error ha
 * [ ] Inliner and TestEmail as interfaces so that other providers can be swapped in
 * [x] Support per-template image/asset directories
 * [ ] User authentication
+
+### License
+
+Copyright 2015 Clearbold, LLC
+
+You may fork or download this code for personal use, but distribution, modification, sublicensing are prohibited.
