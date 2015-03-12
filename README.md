@@ -24,7 +24,7 @@ variable: value
 ---
 ```
 
-Those delimeters are required in every template, even if empty.
+Those delimeters are required in every template, even if empty. (See @SecondParty's [Dipper](https://github.com/secondparty/dipper) for YAML syntax.)
 
 ![Screenshot of FlightDeck](http://clearbold.com/ui/img/flightdeck.png)
 
