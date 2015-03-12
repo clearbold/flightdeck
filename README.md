@@ -96,3 +96,5 @@ Lots! This is just a starting point with functional code. It needs organization,
 * [ ] Error logging for builds
 * [ ] Install templates in ESPs via API
 * [ ] Handle small volume email blasts
+* [ ] Inliner and TestEmail as interfaces so that other providers can be swapped in
+* [x] Support per-template image/asset directories
