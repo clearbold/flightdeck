@@ -78,10 +78,11 @@ Any tags in the format `{{ snippets.snippet-name }}`, where `snippet-name` match
 
 ### To Do
 
-Lots! This is just a starting point with functional code. It needs organization, error handling, and further work on additional features.
+Lots! This is just a starting point with functional code. It more error handling and further work on additional features.
 
 #### Planned Features
 
+* [ ] Make personalization tag support more robust: The goal is that anyone can reproduce tags they're using in their ESP and swap in test values
 * [x] <strike>Move everything into FlightDeck classes</strike>
 * [x] <strike>Hidden files and folders: Templates and template directories hidden from the website list</strike>
 * [x] <strike>Snippets: Chunks of code that can be included in any of your templates</strike>
