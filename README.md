@@ -53,7 +53,7 @@ To set your API key value, copy `flightdeck/config/sample-general.yaml` to `flig
 
 #### Application
 
-If you don't have Composer, you can [install it within the root project directory](https://getcomposer.org/doc/00-intro.md#locally), at the same level as `flightdeck`, `public_html`, and `composer.json`. Once you've done so, run:
+If you don't have Composer, you can [install it within the root project directory](https://getcomposer.org/doc/00-intro.md#locally), at the same level as `flightdeck`, `public_html`, and `composer.json`. ("Installation" just downloads an executable file that you can run in that directory. It doesn't do anything systemwide.) Once you've done so, run:
 
 ```
 php composer.phar install
