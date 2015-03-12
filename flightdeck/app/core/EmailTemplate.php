@@ -125,7 +125,6 @@ class EmailTemplate
         // Write the updated live file
         $live_file = $this->writeFile($this->template_file_path_live, $live_html);
 
-
         if (is_dir($this->template_assets_dir)) {
             // Write a copy of any associated folders to preview
             $this->copyDir($this->template_assets_dir, $this->template_assets_dir_preview);
@@ -152,11 +151,11 @@ class EmailTemplate
     // recurse_copy from http://php.net/manual/en/function.copy.php#91010
     protected function copyDir($src, $dst) {
         $dir = opendir($src);
-        @mkdir($dst);
+        @mkdir($dst, 0777, true);
         while(false !== ( $file = readdir($dir)) ) {
             if (( $file != '.' ) && ( $file != '..' )) {
                 if ( is_dir($src . '/' . $file) ) {
-                    recurse_copy($src . '/' . $file,$dst . '/' . $file);
+                    copyDir($src . '/' . $file,$dst . '/' . $file);
                 }
                 else {
                     copy($src . '/' . $file,$dst . '/' . $file);
