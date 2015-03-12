@@ -93,6 +93,7 @@ Lots! This is just a starting point with functional code. It needs more error ha
 #### Planned Features
 
 * [ ] Make personalization tag support more robust: The goal is that anyone can reproduce tags they're using in their ESP and swap in test values
+* [ ] Support for swapping "wrapper" tags that can go around strings of text, such as unsubscribe links
 * [x] <strike>Move everything into FlightDeck classes</strike>
 * [x] <strike>Hidden files and folders: Templates and template directories hidden from the website list</strike>
 * [x] <strike>Snippets: Chunks of code that can be included in any of your templates</strike>
