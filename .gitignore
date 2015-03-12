@@ -8,10 +8,13 @@ public_html/live/email/app-dev/*
 # Contains local variables used in development of the app that we don't want to push
 # Rename sample-general.yaml to general.yaml and fill in your values
 dispatchwire/config/general.yaml
+flightdeck/config/general.yaml
 
 dispatchwire/cache/*
+flightdeck/cache/*
 
 # Ignore Composer files
 composer.phar
 composer.lock
 dispatchwire/app/vendor/*
+flightdeck/app/vendor/*
