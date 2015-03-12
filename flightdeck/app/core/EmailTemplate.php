@@ -13,6 +13,9 @@ class EmailTemplate
     private $template_contents;
     private $template_file_path_preview;
     private $template_file_path_live;
+    private $template_assets_dir;
+    private $template_assets_dir_preview;
+    private $template_assets_dir_live;
 
     public function __construct($template_file_path) {
 
@@ -22,12 +25,22 @@ class EmailTemplate
 
         // Create the filepaths for the Preview & Live versions of the template
         $template_filename = explode('/', $this->template_file_path);
+
+        $template_assets_dirname = $template_filename;
+        $template_assets_dirname[count($template_assets_dirname)-1] = '_' . str_replace('.html', '', $template_assets_dirname[count($template_assets_dirname)-1]);
+        $this->template_assets_dir = implode('/', $template_assets_dirname);
+
         // Swap in the preview dir
         $template_filename[1] = 'preview';
         $this->template_file_path_preview = implode('/', $template_filename);
+        $template_assets_dirname[1] = 'preview';
+        $this->template_assets_dir_preview = implode('/', $template_assets_dirname);
+
         // Swap in the live dir
         $template_filename[1] = 'live';
         $this->template_file_path_live = implode('/', $template_filename);
+        $template_assets_dirname[1] = 'live';
+        $this->template_assets_dir_live = implode('/', $template_assets_dirname);
 
     }
 
@@ -112,6 +125,15 @@ class EmailTemplate
         // Write the updated live file
         $live_file = $this->writeFile($this->template_file_path_live, $live_html);
 
+
+        if (is_dir($this->template_assets_dir)) {
+            // Write a copy of any associated folders to preview
+            $this->copyDir($this->template_assets_dir, $this->template_assets_dir_preview);
+
+            // Write a copy of any associated folders to live
+            $this->copyDir($this->template_assets_dir, $this->template_assets_dir_live);
+        }
+
         return array(
             "status" => true,
             "lastBuild" => date("m-d-Y H:i:s", filemtime($this->template_file_path_live))
@@ -125,6 +147,23 @@ class EmailTemplate
         if(!is_dir(dirname($filename)))
             mkdir(dirname($filename).'/', 0777, TRUE);
         return file_put_contents($filename, $data,$flags);
+    }
+
+    // recurse_copy from http://php.net/manual/en/function.copy.php#91010
+    protected function copyDir($src, $dst) {
+        $dir = opendir($src);
+        @mkdir($dst);
+        while(false !== ( $file = readdir($dir)) ) {
+            if (( $file != '.' ) && ( $file != '..' )) {
+                if ( is_dir($src . '/' . $file) ) {
+                    recurse_copy($src . '/' . $file,$dst . '/' . $file);
+                }
+                else {
+                    copy($src . '/' . $file,$dst . '/' . $file);
+                }
+            }
+        }
+        closedir($dir);
     }
 
 }

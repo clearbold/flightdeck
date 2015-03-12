@@ -63,6 +63,17 @@ This will install all of FlightDeck's dependencies locally, within the `flightde
 
 Refer to `public_html/templates/email/sample.html` for examples.
 
+### Image Assets
+
+If you include image files in a folder that matches your template's name, that folder will be copied to your `preview` and `live` folders each time you build your template. How you name your matching folder is important.
+
+```
+templates/email/sample.html matches templates/email/_sample
+templates/client-1/template-1.html matches templates/email/_template-1
+```
+
+This will allow to reference image files in your template using relative paths, such as `src="_sample/image.png"` and rely on those paths when you deploy your email templates.
+
 ### Snippets
 
 Any tags in the format `{{ snippets.snippet-name }}`, where `snippet-name` matches the non-`.html` portion of the name of a file in the `snippets` folder will be replaced by the contents of the corresponding file. Unmatched snippets tags will not be replaced and will be rendered in the live and preview templates.
