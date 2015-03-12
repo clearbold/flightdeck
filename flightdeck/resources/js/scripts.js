@@ -1,6 +1,7 @@
 $('a.build-link').on('click', function(e) {
     e.preventDefault();
 
+    $(this).removeClass('build-successful');
     $(this).addClass('build-pending');
 
     $.ajax({
