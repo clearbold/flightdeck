@@ -55,6 +55,8 @@ class EmailTemplate
 
     public function buildEmailTemplate() {
 
+        $template_html = $this->templateHtml();
+
         $snippets = array();
         $snippet_tags_found = preg_match_all( "/(\{\{\s*snippets\.([a-z0-9A-Z\-_]+)\s*\}\})/", $this->templateHtml(), $snippets );
 
@@ -64,7 +66,7 @@ class EmailTemplate
             if (file_exists($snippet_filename))
             {
                 $snippet_file = file_get_contents($snippet_filename);
-                $template_html = str_replace($snippets[1][$i], $snippet_file, $this->templateHtml());
+                $template_html = str_replace($snippets[1][$i], $snippet_file, $templateHtml);
             }
             $i++;
         }
