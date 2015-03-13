@@ -66,7 +66,7 @@ class EmailTemplate
             if (file_exists($snippet_filename))
             {
                 $snippet_file = file_get_contents($snippet_filename);
-                $template_html = str_replace($snippets[1][$i], $snippet_file, $templateHtml);
+                $template_html = str_replace($snippets[1][$i], $snippet_file, $template_html);
             }
             $i++;
         }
