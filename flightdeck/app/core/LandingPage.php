@@ -73,14 +73,48 @@ class LandingPage
 
         $visible_fields = array_filter($custom_fields, function($object) { return $object['VisibleInPreferenceCenter'] == 'true'; });
 
+        //var_dump($visible_fields);
+
         // Will need a route to accept a POST at the same URL
         // https://www.campaignmonitor.com/api/subscribers/#adding_a_subscriber
         // EmailAddress and Name fields will have to be added in to the form
 
         $form_markup = "<form method=\"POST\"";
         $form_markup .= ">\n";
-        $form_markup .= "<p><label for=\"EmailAddress\">Email Address:</label>\n";
-        $form_markup .= "<input type=\"email\" name=\"EmailAddress\" id=\"EmailAddress\" /></p>\n";
+        $form_markup .= "    <p><label for=\"EmailAddress\">Email Address:</label>\n";
+        $form_markup .= "    <input type=\"email\" name=\"EmailAddress\" id=\"EmailAddress\" /></p>\n";
+        $form_markup .= "    <p><label for=\"Name\">Name:</label>\n";
+        $form_markup .= "    <input type=\"text\" name=\"Name\" id=\"Name\" /></p>\n";
+        foreach ($visible_fields as $field) {
+            $key = explode(']',explode('[',$field['Key'])[1])[0];
+            $form_markup .= "    <p><label for=\"$key\">$field[FieldName]:</label>\n";
+            switch ($field['DataType']) {
+                case 'Text':
+                    $form_markup .= "    <input type=\"text\" name=\"$key\" id=\"$key\" /></p>\n";
+                    break;
+                case 'Number':
+                    $form_markup .= "    <input type=\"number\" name=\"$key\" id=\"$key\" /></p>\n";
+                    break;
+                case 'MultiSelectOne':
+                    $form_markup .= "    <select name=\"$key\" id=\"$key\">\n";
+                foreach ( $field['FieldOptions'] as $option)
+                        $form_markup .= "        <option>$option</option>\n";
+                    $form_markup .= "    </select></p>\n";
+                    break;
+                case 'MultiSelectMany':
+                    $form_markup .= "    <select name=\"$key\" id=\"$key\" multiple=\"true\">\n";
+                foreach ( $field['FieldOptions'] as $option)
+                        $form_markup .= "        <option>$option</option>\n";
+                    $form_markup .= "    </select></p>\n";
+                    break;
+                case 'Date':
+                    $form_markup .= "    <input type=\"datetime\" name=\"$key\" id=\"$key\" /></p>\n";
+                    break;
+                default:
+                    $form_markup .= "    <input type=\"text\" name=\"$key\" id=\"$key\" /></p>\n";
+            }
+        }
+
         $form_markup .= '</form>';
 
         return $form_markup;
