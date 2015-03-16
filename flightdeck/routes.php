@@ -87,7 +87,11 @@ $app->get('/:name+', function($requestedPage) use ($app)
 
     // TODO: This probably needs a custom view so autoescape:false can somehow be applied to just the {{body}} tag
     $app->render($landing_page->template(),
-        array( 'body' => $landing_page->html() ));
+        array(
+            'body' => $landing_page->html(),
+            'form' => $landing_page->formMarkup()
+        )
+    );
 
 });
 
