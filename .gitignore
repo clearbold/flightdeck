@@ -4,6 +4,7 @@
 public_html/templates/email/app-dev/*
 public_html/preview/email/app-dev/*
 public_html/live/email/app-dev/*
+public_html/content/app-dev/*
 
 # Contains local variables used in development of the app that we don't want to push
 # Rename sample-general.yaml to general.yaml and fill in your values
