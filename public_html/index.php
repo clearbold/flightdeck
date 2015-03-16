@@ -5,11 +5,14 @@ $flightdeck_path = '../flightdeck';
 
 // Do not modify anything below this line!
 
+define('PUBLIC_HTML', __DIR__);
 define('FLIGHTDECK_PATH', __DIR__ . '/' . $flightdeck_path);
 define('FLIGHTDECK_CORE_PATH', FLIGHTDECK_PATH . '/app/core');
 
 require FLIGHTDECK_PATH . '/app/vendor/autoload.php';
 require FLIGHTDECK_PATH . '/app/core/Flightdeck.php';
+
+// TODO: Move /app/lib to a preloader
 require FLIGHTDECK_PATH . '/app/lib/Premailer.php';
 
 spl_autoload_register('\FlightDeck\Autoload::core');
