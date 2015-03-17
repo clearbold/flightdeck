@@ -73,6 +73,8 @@ class LandingPage
 
         $visible_fields = array_filter($custom_fields, function($object) { return $object['VisibleInPreferenceCenter'] == 'true'; });
 
+        // TODO: Support additional fields in YAMLFM
+
         //var_dump($visible_fields);
 
         // Will need a route to accept a POST at the same URL
