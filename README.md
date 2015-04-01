@@ -110,6 +110,7 @@ Lots! This is just a starting point with functional code. It needs more error ha
 * [x] Support per-template image/asset directories
 * [ ] User authentication
 * [ ] Console errors if templates don't have front matter (`undefined offset`)
+* [ ] Invalid foreach error if `_test_addresses` only has 1 address
 
 ### License
 

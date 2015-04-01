@@ -66,30 +66,28 @@ class EmailTemplate
             if (file_exists($snippet_filename))
             {
                 $snippet_file = file_get_contents($snippet_filename);
-                $template_html = str_replace($snippets[1][$i], $snippet_file, $template_html);
+                $template_html = str_replace($snippets[1][$i], $snippet_file, $templateHtml);
             }
             $i++;
         }
 
         // Pass the template's HTML to the Premailer API
-        if (isset($this->templateConfig()['_inline']) && $this->templateConfig()['_inline']) {
-            try
-            {
-                $pre = \Premailer::html($template_html);
-                $live_html = $pre['html'];
-            }
-            catch (Exception $e)
-            {
-                $live_html = '';
-            }
+        try
+        {
+            $pre = \Premailer::html($template_html);
+            $live_html = $pre['html'];
+        }
+        catch (Exception $e)
+        {
+            $live_html = '';
+        }
 
-            $preview_html = $live_html;
+        $preview_html = $live_html;
 
-            // Swap custom field tags with config values for the preview (not live)
-            if (isset($this->template_config['_tags_field_value'])) {
-                foreach ($this->template_config['_tags_field_value'] as $key => $value) {
-                    $preview_html = str_replace($key, $value, $preview_html);
-                }
+        // Swap custom field tags with config values for the preview (not live)
+        if (isset($this->template_config['_tags_field_value'])) {
+            foreach ($this->template_config['_tags_field_value'] as $key => $value) {
+                $preview_html = str_replace($key, $value, $preview_html);
             }
         }
 
