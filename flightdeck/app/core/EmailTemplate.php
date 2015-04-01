@@ -71,15 +71,19 @@ class EmailTemplate
             $i++;
         }
 
+        $live_html = $template_html;
+
         // Pass the template's HTML to the Premailer API
-        try
-        {
-            $pre = \Premailer::html($template_html);
-            $live_html = $pre['html'];
-        }
-        catch (Exception $e)
-        {
-            $live_html = '';
+        if (isset($this->templateConfig()['_inline']) && $this->templateConfig()['_inline']) {
+            try
+            {
+                $pre = \Premailer::html($template_html);
+                $live_html = $pre['html'];
+            }
+            catch (Exception $e)
+            {
+                $live_html = '';
+            }
         }
 
         $preview_html = $live_html;
