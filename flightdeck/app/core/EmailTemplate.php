@@ -71,6 +71,8 @@ class EmailTemplate
             $i++;
         }
 
+        $live_html = $template_html;
+
         // Pass the template's HTML to the Premailer API
         if (isset($this->templateConfig()['_inline']) && $this->templateConfig()['_inline']) {
             try
@@ -82,14 +84,14 @@ class EmailTemplate
             {
                 $live_html = '';
             }
+        }
 
-            $preview_html = $live_html;
+        $preview_html = $live_html;
 
-            // Swap custom field tags with config values for the preview (not live)
-            if (isset($this->template_config['_tags_field_value'])) {
-                foreach ($this->template_config['_tags_field_value'] as $key => $value) {
-                    $preview_html = str_replace($key, $value, $preview_html);
-                }
+        // Swap custom field tags with config values for the preview (not live)
+        if (isset($this->template_config['_tags_field_value'])) {
+            foreach ($this->template_config['_tags_field_value'] as $key => $value) {
+                $preview_html = str_replace($key, $value, $preview_html);
             }
         }
 
