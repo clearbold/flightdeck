@@ -4,6 +4,7 @@
 public_html/templates/email/app-dev/*
 public_html/preview/email/app-dev/*
 public_html/live/email/app-dev/*
+public_html/content/app-dev/*
 
 # Contains templates used for client work that we don't want to push
 public_html/templates/email/clearbold-clients/*
