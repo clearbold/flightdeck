@@ -109,6 +109,7 @@ Lots! This is just a starting point with functional code. It needs more error ha
 * [ ] Inliner and TestEmail as interfaces so that other providers can be swapped in
 * [x] Support per-template image/asset directories
 * [ ] User authentication
+* [ ] Console errors if templates don't have front matter (`undefined offset`)
 
 ### License
 
